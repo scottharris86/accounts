@@ -18,7 +18,7 @@ var App = {
 
       Login : {
         init : function() {
-            this.$el = $('div.login-form');
+            this.$el = $('section.signin');
             this.$el.find('input[name=username]').focus();
             this.$el.find('input').on('keypress', {parent : this}, this.UI._inputKeypress);
             this.$el.find('.signin').click({parent : this}, this.UI._clickLoginButton);
