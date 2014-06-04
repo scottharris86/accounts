@@ -1014,6 +1014,6 @@ var FMEX = {
 
 
 $(document).ready(function() {
-    FMEX.Accounts.init();
-    FMEX.UI.init();
+    //FMEX.Accounts.init();
+    //FMEX.UI.init();
 });
