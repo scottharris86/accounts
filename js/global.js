@@ -11,8 +11,8 @@ var FMEX = {
         } catch (e) {}
     }()),
     Services: {
-        ServiceHost: '54.205.64.78',
-        //ServiceHost: '10.211.55.3',
+        //ServiceHost: '54.205.64.78',
+        ServiceHost: '10.211.55.6',
 
         // Given an object, create a query parameters list from the KVPs in the object
         AppendQueryParams: (function(params) {

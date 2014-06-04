@@ -82,7 +82,7 @@ var App = {
 };
 
 
-$(document).ready(function() {
-    App.init();
-});
+//$(document).ready(function() {
+    //App.init();
+//});
 
