@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<script src="js/global.js" type="text/javascript"></script>
 	<script src="js/login.js" type="text/javascript"></script>
+	<script src="js/login2.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -27,30 +28,24 @@
 	</div>
 	<section class="Signin">
 	<div class="container">
-	<form action="index" method="post" class="form-horizontal login-form ">
+	<form action="index" method="post" class="form-horizontal login-form">
   <div class="control-group">
     <label class="control-label" for="username">User Name:</label>
     <div class="controls">
-      <input type="text" id="username" name="User Name" placeholder="username">
+      <input type="text" id="username" name="username" placeholder="User Name">
     </div>
   </div>
   <div class="control-group">
     <label class="control-label" for="inputPassword">Password:</label>
     <div class="controls">
-      <input type="password" id="inputPassword" name="Password" placeholder="Password">
+      <input type="password" id="inputPassword" name="password" placeholder="Password">
     </div>
     <div class="controls">
-    	 <input type="submit" class="signin login-button btn btn-large" value="Login">Login
+    	 <input type="submit" class="signin login-button btn btn-large" value="Login" onClick="login()">
     	</div>
     </form>
   </div> 
 </div>
 </section>
-<script source="js/login.js" type="text/javascript">
-$(document).ready(function() {
-    App.init();
-});
-</script>
-
 </body>
 </html>
