@@ -176,7 +176,7 @@ var FMEX = {
 
             Profile : function() {
                 var response;
-                $.ajax(FMEX.Services.WebServiceURL('8081', 'auth/whoami'), {
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'auth'), {
                     type: 'GET',
                     async: false,
                     contentType: 'application/json',
@@ -198,6 +198,25 @@ var FMEX = {
                     }
                 });
                 return response;
+            },
+
+                 Get : function(){
+                var profiles = false;
+                $.ajax({
+                    url : FMEX.Services.WebServiceURL(8081,'auth/all'),
+                    type: 'GET',
+                    dataType : 'json',
+                    async : false,
+                    success : function(data){
+                        profiles = data;
+                    },
+                    error : function(e){
+                        console.log("error: " + e);
+                    var error = e;
+                    },
+                });
+
+                return profiles
             }
         },
 
@@ -765,7 +784,7 @@ var FMEX = {
         Account: {
             Get: function() {
                 var accounts = false;
-                $.ajax(FMEX.Services.WebServiceURL('8081', 'acct'), {
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'acct/all'), {
                     type: 'GET',
                     dataType: 'json',
                     async: false,
@@ -1014,6 +1033,6 @@ var FMEX = {
 
 
 $(document).ready(function() {
-    //FMEX.Accounts.init();
+    FMEX.Accounts.init();
     //FMEX.UI.init();
 });
