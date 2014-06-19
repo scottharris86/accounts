@@ -200,10 +200,9 @@ var FMEX = {
                 return response;
             },
 
-                 Get : function(){
+            Get : function(){
                 var profiles = false;
-                $.ajax({
-                    url : FMEX.Services.WebServiceURL(8081,'auth/all'),
+                $.ajax(FMEX.Services.WebServiceURL('8081','auth/all'), {
                     type: 'GET',
                     dataType : 'json',
                     async : false,
@@ -216,9 +215,129 @@ var FMEX = {
                     },
                 });
 
-                return profiles
+                return profiles;
+            },   
+        
+            Modify : function(id, firstName, lastName, userName, email, status){
+                var result = false;
+                $.ajax(FMEX.Services.WebServiceURL('8081','auth/user/'+id), {
+                    type: 'PATCH',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data : JSON.stringify({
+                        userName : userName,
+                        firstName : firstName,
+                        lastName : lastName,
+                        email : email,
+                        status : status
+                    }),
+                    async : false,
+                    success : function(message){
+                        result = message;
+                        console.log(result);
+                    },
+                    error : function(e){
+                        console.log("error: " + e.status);
+                        //console.log(JSON.stringify(data));
+                        //result = e;
+                    }
+                });
+
+                return result;
+            },// end of ModifyUser
+            Create : function(userName, firstName, lastName, email, status, password){
+                //console.log(data);
+                var result = false;
+                $.ajax(FMEX.Services.WebServiceURL('8081','auth/user'), {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data : JSON.stringify({
+                        userName : userName,
+                        firstName : firstName,
+                        lastName : lastName,
+                        email : email,
+                        status : status,
+                        password : password
+                    }),
+                    async : false,
+                    success : function(response){
+                        result = true;
+                        
+                    },
+                    error : function(e){
+                        console.log("error: " + e.status);
+                        //console.log(JSON.stringify(data));
+                        result = 'Fail!!!';
+                    },
+                });
+
+                return result;
+            },// end of ModifyUser
+            DeleteProfile :function(id) {
+                var result=false;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'auth/user/'+id), {
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data : JSON.stringify({
+                        id : id
+                    }),
+                    async : false,
+                    success : function(response){
+                        result = response;
+                    },
+                    error : function(e){
+                        console.log("error: " +e.status);
+                        result = "Fail!!"
+                        console.log(result);
+                    },
+                });
+
+            },
+            GetAcctByProfile : function(id){
+                var result =false;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'acct/user/'+id), {
+                    type: 'GET',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        id : id
+                    }),
+                    async: false,
+                    success : function(data){
+                        result=data;
+                    },
+                    error : function(e){
+                        console.log('error: '+e.status)
+                    }
+                });
+            },
+            ChangeUserPassword : function(id, password){
+                var result=false;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'auth/user/'+id+'/password'), {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        userId : id,
+                        newPassword : password
+                    }),
+                    async: false,
+                    success: function(message){
+                        console.log('success!!');
+                        result=true;
+                    },
+                    error: function(e){
+                        console.log('fail!!!');
+                        result=true;
+                    }
+
+                });
+                return result;
             }
-        },
+        },//end of auth
+        
 
         File: {
 
@@ -682,6 +801,19 @@ var FMEX = {
         },
 
         Whitelist: {
+            GetAll : function(){
+                var whitelists=false;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'wls/all'), {
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    success: function(data){
+                        whitelists=data;
+                    }
+                });
+                return whitelists;
+
+            },
             GetForAccount: function(accountId) {
                 var whitelists = false;
                 $.ajax(FMEX.Services.WebServiceURL('8081', 'wls/account/' + accountId), {
@@ -819,8 +951,108 @@ var FMEX = {
 
                 return accounts;
             },
-        },
+             UpdateAndSave : function(id, name, description, status, email, notional_limit, impression_limit, notional_avail, impression_avail){
 
+                var result = false;
+                $.ajax(FMEX.Services.WebServiceURL(8081,'acct'), {
+
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        id : id,
+                        name : name,
+                        description : description,
+                        status : status,
+                        email : email,
+                        notional_limit : notional_limit,
+                        impression_limit : impression_limit,
+                        notional_avail : notional_avail,
+                        impression_avail : impression_avail
+                    }),
+                    async: false,
+                    success: function(response){
+                        result = true;
+                    },
+                    error : function(e){
+                        alert("The request did not go through. Please refresh the page.");
+                    }
+                });
+                return result;
+
+            },
+            CreateAndSave : function(name, description, status, email, notional_limit, impression_limit, notional_avail, impression_avail){
+
+                var result = false;
+                $.ajax(FMEX.Services.WebServiceURL(8081,'acct'), {
+
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        name : name,
+                        description : description,
+                        status : status,
+                        email : email,
+                        notional_limit : notional_limit,
+                        impression_limit : impression_limit,
+                        notional_avail : notional_avail,
+                        impression_avail : impression_avail
+                    }),
+                    async: false,
+                    success: function(response){
+                        result = true;
+                    },
+                    error : function(e){
+                        alert("The request did not go through. Please refresh the page.");
+                    }
+                });
+                return result;
+
+            },
+            GetAccountsByID : function(id){
+                var result=false;
+                $.ajax(FMEX.Services.WebServiceURL(8081, 'acct/user/'+id),{
+                    type: 'GET',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+
+                    }),
+                    async: false,
+                    success: function(data){
+                        result=data;
+                    },
+                    error : function(e){
+                        alert("There was an error.....");
+                    },
+                });
+                return result;
+            },
+            UpdateUserAccountMappings : function(user_id, accountId){
+                var result=false;
+                var count=0;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'acct/user/'+user_id), {
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        user_id : user_id,
+                        accountIds : accountId
+                    }),
+                    async: false,
+                    success : function(response){
+                        result=response;
+                    },
+                    error : function(e){
+                        console.log('Didnt Work!!!! Again!!!!');
+                    },
+                });
+                count++;
+                return result;
+                console.log(count);
+            },
+        },//end of account
         Message: {
             init: function() {
                 this.$el = $('.notifications');
