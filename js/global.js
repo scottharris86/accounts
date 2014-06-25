@@ -216,7 +216,24 @@ var FMEX = {
                 });
 
                 return profiles;
-            },   
+            }, 
+            GetById : function(id){
+                var profiles = false;
+                $.ajax(FMEX.Services.WebServiceURL('8081','auth/user/'+id), {
+                    type: 'GET',
+                    dataType : 'json',
+                    async : false,
+                    success : function(data){
+                        profiles = data;
+                    },
+                    error : function(e){
+                        console.log("error: " + e);
+                    var error = e;
+                    },
+                });
+
+                return profiles;
+            },  
         
             Modify : function(id, firstName, lastName, userName, email, status){
                 var result = false;
@@ -838,13 +855,19 @@ var FMEX = {
                 });
                 return whitelist;
             },
-            Create: function(whitelistDesc) {
+            Create: function(userId, accountId, name, status) {
                 var result = false;
                 $.ajax(FMEX.Services.WebServiceURL('8081', 'wls'), {
                     type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify(whitelistDesc),
+                    data: JSON.stringify({
+                        userId: userId,
+                        accountId: accountId,
+                        name : name,
+                        status : status,
+                        entries : []
+                    }),
                     async: false,
                     success: function(response) {
                         result = {
@@ -861,13 +884,19 @@ var FMEX = {
                 });
                 return result;
             },
-            Update: function(whitelistDesc, whitelistId) {
+            Update: function(whitelistId, userId, accountId, name, status, entries) {
                 var result = false;
                 $.ajax(FMEX.Services.WebServiceURL('8081', 'wls/' + whitelistId), {
                     type: 'PATCH',
                     contentType: 'application/json',
                     dataType: 'json',
-                    data: JSON.stringify(whitelistDesc),
+                    data: JSON.stringify({
+                        userId : userId,
+                        accountId : accountId,
+                        name : name,
+                        status : status,
+                        entries : entries
+                    }),
                     async: false,
                     success: function(response) {
                         result = true;
@@ -925,6 +954,19 @@ var FMEX = {
                     }
                 });
                 return accounts;
+            },
+            GetSpecificAcct : function(id){
+                var account = false;
+                $.ajax(FMEX.Services.WebServiceURL('8081', 'acct/'+id), {
+                    type: 'GET',
+                    dataType: 'json',
+                    async: false,
+                    success: function(data) {
+                        account = data;
+                    }
+                });
+                return account;
+
             },
             GetIds: function() {
                 var ids = [];

@@ -22,23 +22,13 @@
 	<div class="container alert alert-error">
   	<strong>Warning!</strong><p>Invalid username or password...Please try again</p>
 	</div>
-	<section class="signin">
+	<section class="signin container">
 		<div class="container form-login">
-			<form action="index.html" method="post" class="form-horizontal login-form" id="form" name="form">
-  				<div class="control-group">
-    				<label class="control-label" for="username">User Name:</label>
-    					<div class="controls">
-      						<input type="text" id="username" name="username" placeholder="User Name">
-    					</div>
-  				</div>
-  				<div class="control-group">
-    				<label class="control-label" for="password">Password:</label>
-    					<div class="controls">
-      						<input type="password" id="password" name="password" placeholder="Password">
-    					</div>
-    			</div>
-    			<div class="controls">
-    	 			<input type="submit" class="signin login-button btn btn-large" value="Login" id="form-submit">
+			<form action="accounts.html" method="post" class="login-form" id="form" name="form">
+				<h3>Please Sign In</h3>
+				<input type="text" class="input-block-level" id="username" name="username" placeholder="User Name">
+				<input type="password" class="input-block-level" id="password" name="password" placeholder="Password">
+	 			<input type="submit" class="signin login-button btn btn-large btn-primary" value="Sign In" id="form-submit">
     			</div> 
 			</form>
 		</div>

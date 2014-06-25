@@ -50,7 +50,7 @@ var App = {
           FMEX.Session.setName(response.name);
           this.$el.find('input[name=username]').val('');
           this.$el.find('input[name=password]').val('');
-          that.$el.find('form[action="index.html"').submit();
+          that.$el.find('form[action="accounts.html"').submit();
         }
         else{
           $('.alert').fadeIn(1750);
